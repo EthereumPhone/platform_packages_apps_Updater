@@ -10,6 +10,9 @@ import android.graphics.drawable.Icon;
 import android.text.Html;
 import android.text.Spanned;
 
+import android.net.Uri;
+import android.media.RingtoneManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class NotificationHandler {
         final List<NotificationChannel> channels = new ArrayList<>();
 
         channels.add(new NotificationChannel(NOTIFICATION_CHANNEL_ID_PROGRESS,
-                service.getString(R.string.notification_channel_progress), IMPORTANCE_LOW));
+                service.getString(R.string.notification_channel_progress), IMPORTANCE_HIGH));
 
         final NotificationChannel reboot = new NotificationChannel(NOTIFICATION_CHANNEL_ID_REBOOT,
                 service.getString(R.string.notification_channel_reboot), IMPORTANCE_HIGH);
@@ -54,10 +57,10 @@ public class NotificationHandler {
         channels.add(reboot);
 
         channels.add(new NotificationChannel(NOTIFICATION_CHANNEL_ID_FAILURE,
-                service.getString(R.string.notification_channel_failure), IMPORTANCE_LOW));
+                service.getString(R.string.notification_channel_failure), IMPORTANCE_HIGH));
 
         channels.add(new NotificationChannel(NOTIFICATION_CHANNEL_ID_UPDATED,
-                service.getString(R.string.notification_channel_updated), IMPORTANCE_MIN));
+                service.getString(R.string.notification_channel_updated), IMPORTANCE_HIGH));
 
         notificationManager.createNotificationChannels(channels);
     }
