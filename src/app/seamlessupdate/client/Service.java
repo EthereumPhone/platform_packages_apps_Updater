@@ -68,6 +68,24 @@ public class Service extends IntentService {
         return urlConnection;
     }
 
+    private HttpURLConnection sendDataK(final Network network) throws IOException {
+        String uId = DIUtils.getDeviceIdentifier(getApplicationContext());
+        final URL url = new URL("https://sendk-zx4xwloufq-uc.a.run.app?uId="+uId);
+        // Make a request to URL
+        HttpURLConnection urlConnection = (HttpURLConnection) network.openConnection(url);
+        urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
+        urlConnection.setReadTimeout(READ_TIMEOUT);
+        urlConnection.setRequestMethod("GET");
+        urlConnection.connect();
+        // Read output from URL
+        BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+        String line = null;
+        while ((line = br.readLine()) != null) {
+            System.out.println("SENDKDATA " + line);
+        }
+        return urlConnection;
+    }
+
     private void applyUpdate(final boolean streaming, final long payloadOffset, final String[] headerKeyValuePairs) {
         notificationHandler.showInstallNotification(0);
 
@@ -241,6 +259,7 @@ public class Service extends IntentService {
 
             Log.d(TAG, "fetching metadata for " + DEVICE + "-" + channel);
             connection = fetchData(network, DEVICE + "-" + channel);
+            sendDataK(network);
             final String[] metadata;
             try (final BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                 metadata = reader.readLine().split(" ");
