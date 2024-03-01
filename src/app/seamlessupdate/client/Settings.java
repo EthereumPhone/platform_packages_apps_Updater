@@ -12,6 +12,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.Preference;
 import androidx.preference.ListPreference;
+import android.content.res.Configuration;
 
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
@@ -68,6 +69,13 @@ public class Settings extends CollapsingToolbarBaseActivity {
                     .replace(com.android.settingslib.R.id.content_frame, new SettingsFragment())
                     .commit();
         }
+        
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.black));
+        }
+
     }
 
     @Override

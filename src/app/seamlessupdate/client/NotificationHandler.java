@@ -51,7 +51,7 @@ public class NotificationHandler {
                 service.getString(R.string.notification_channel_progress), IMPORTANCE_LOW));
 
         final NotificationChannel reboot = new NotificationChannel(NOTIFICATION_CHANNEL_ID_REBOOT,
-                service.getString(R.string.notification_channel_reboot), IMPORTANCE_LOW);
+                service.getString(R.string.notification_channel_reboot), IMPORTANCE_HIGH);
         reboot.enableLights(true);
         reboot.enableVibration(true);
         channels.add(reboot);

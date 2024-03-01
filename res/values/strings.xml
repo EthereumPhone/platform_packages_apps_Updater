@@ -12,7 +12,7 @@
     <string name="notification_validate_title">Validating system update</string>
     <string name="notification_finalize_title">Finalizing system update</string>
     <string name="notification_reboot_title">Update successfully installed</string>
-    <string name="notification_reboot_text">Please reboot the device to run the latest OS release.</string>
+    <string name="notification_reboot_text">Please reboot the device update to the newest version of ethOS.</string>
     <string name="notification_reboot_action">Reboot</string>
     <string name="notification_updated_title">Device is up-to-date</string>
     <string name="notification_updated_text">Latest %s channel release is already installed.</string>
