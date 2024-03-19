@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">System Updater</string>
-    <string name="notification_channel_progress">Update Progress</string>
-    <string name="notification_channel_reboot">Reboot Prompt</string>
-    <string name="notification_channel_failure">Error Reporting</string>
-    <string name="notification_channel_updated">Already Updated</string>
+    <string name="notification_channel_progress">Update progress</string>
+    <string name="notification_channel_reboot">Reboot prompt</string>
+    <string name="notification_channel_failure">Error reporting</string>
+    <string name="notification_channel_updated">Already up to date</string>
     <string name="notification_check_title">Checking for system update</string>
     <string name="notification_download_title">Downloading system update</string>
     <string name="notification_verify_title">Verifying system update</string>
@@ -17,7 +17,7 @@
     <string name="notification_updated_title">Device is up-to-date</string>
     <string name="notification_updated_text">Latest %s channel release is already installed.</string>
     <string name="notification_failed_check_title">Failed to check for updates</string>
-    <string name="notification_failed_check_text">An error occured checking for the latest update. The update system will try again soon.</string>
+    <string name="notification_failed_check_text">An error occurred checking for the latest update. The update system will try again soon.</string>
     <string name="notification_failed_download_title">Failed to download update</string>
     <string name="notification_failed_download_text">An error occurred downloading the latest update. The update system will try again soon. The download will be resumed if it\'s still the latest version.</string>
     <string name="notification_failed_verify_title">Failed to verify update</string>
@@ -44,7 +44,7 @@
     <string name="idle_reboot_summary_on">Automatically reboot once the device is idle after successfully installing an update</string>
     <string name="idle_reboot_summary_off">Don\'t automatically reboot once the device is idle after successfully installing an update</string>
     <string name="check_for_updates_title">Check for updates</string>
-    <string name="check_for_updates_summary">Tap to check for updates as soon as possible</string>
+    <string name="check_for_updates_summary">Tap to check for updates</string>
     <string name="notification_settings_title">Notification settings</string>
     <string name="notification_settings_summary">Modify notification channel settings</string>
 </resources>

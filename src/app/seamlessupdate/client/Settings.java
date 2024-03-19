@@ -1,9 +1,13 @@
 package app.seamlessupdate.client;
 
+import android.net.Network;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.UserManager;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -37,22 +41,22 @@ public class Settings extends CollapsingToolbarBaseActivity {
 
     static int getNetworkType(final Context context) {
         return getPreferences(context).getInt(KEY_NETWORK_TYPE,
-                Integer.valueOf(context.getString(R.string.network_type_default)));
+                Integer.parseInt(context.getString(R.string.network_type_default)));
     }
 
     static boolean getBatteryNotLow(final Context context) {
         return getPreferences(context).getBoolean(KEY_BATTERY_NOT_LOW,
-                Boolean.valueOf(context.getString(R.string.battery_not_low_default)));
+                Boolean.parseBoolean(context.getString(R.string.battery_not_low_default)));
     }
 
     static boolean getRequiresCharging(final Context context) {
         return getPreferences(context).getBoolean(KEY_REQUIRES_CHARGING,
-                Boolean.valueOf(context.getString(R.string.requires_charging_default)));
+                Boolean.parseBoolean(context.getString(R.string.requires_charging_default)));
     }
 
     static boolean getIdleReboot(final Context context) {
         return getPreferences(context).getBoolean(KEY_IDLE_REBOOT,
-                Boolean.valueOf(context.getString(R.string.idle_reboot_default)));
+                Boolean.parseBoolean(context.getString(R.string.idle_reboot_default)));
     }
 
     @Override
@@ -90,14 +94,25 @@ public class Settings extends CollapsingToolbarBaseActivity {
 
     public static class SettingsFragment extends PreferenceFragmentCompat
             implements SharedPreferences.OnSharedPreferenceChangeListener {
+        private static String TAG = "SettingsFragment";
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             getPreferenceManager().setStorageDeviceProtected();
             setPreferencesFromResource(R.xml.settings, rootKey);
 
             Preference.OnPreferenceClickListener clickListener = preference -> {
-                if (!getPreferences(requireContext()).getBoolean(KEY_WAITING_FOR_REBOOT, false)) {
-                    PeriodicJob.schedule(requireContext(), true);
+                final Context context = requireContext();
+                if (!getPreferences(context).getBoolean(KEY_WAITING_FOR_REBOOT, false)) {
+                    final ConnectivityManager connectivityManager = context.getSystemService(ConnectivityManager.class);
+                    final Network network = connectivityManager.getActiveNetwork();
+                    if (network == null) {
+                        Log.w(TAG, "checkForUpdates.onClickListener – network will be unavailable");
+                    }
+                    final var intent = new Intent(context, Service.class);
+                    intent.putExtra(Service.INTENT_EXTRA_IS_USER_INITIATED, true);
+                    intent.putExtra(Service.INTENT_EXTRA_NETWORK, network);
+                    context.startForegroundService(intent);
                 }
                 return true;
             };
